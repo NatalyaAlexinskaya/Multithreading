@@ -9,7 +9,7 @@ public class BankUser implements Runnable{
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             int number = numberRandom();
             if (Bank.hasEnoughMoney(name, number)) {
                 Bank.transferMoney(number);
@@ -19,7 +19,7 @@ public class BankUser implements Runnable{
                     e.printStackTrace();
                 }
             } else {
-                break;
+                Thread.currentThread().interrupt();
             }
         }
     }
